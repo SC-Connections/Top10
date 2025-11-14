@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top10 - Product Review Sites</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      color: white;
+      margin-bottom: 50px;
+    }
+    
+    h1 {
+      font-size: 3em;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .subtitle {
+      font-size: 1.3em;
+      opacity: 0.95;
+    }
+    
+    .sites-list {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    .site-card {
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      transition: all 0.3s;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .site-card:hover {
+      border-color: #667eea;
+      transform: translateX(10px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+    
+    .site-title {
+      font-size: 1.4em;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+    
+    .site-date {
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #7f8c8d;
+    }
+    
+    .empty-state-icon {
+      font-size: 4em;
+      margin-bottom: 20px;
+    }
+    
+    .cta {
+      background: #667eea;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    
+    .cta:hover {
+      background: #5568d3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🏆 Top10</h1>
+      <p class="subtitle">Automated Product Review Sites</p>
+    </header>
+    
+    <div class="sites-list">
+      {% if site.posts.size > 0 %}
+        {% for post in site.posts %}
+          <a href="{{ post.url }}" class="site-card">
+            <div class="site-title">{{ site.data[post.data_file].title }}</div>
+            <div class="site-date">Generated {{ post.date | date: "%B %d, %Y" }}</div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state">
+          <div class="empty-state-icon">📦</div>
+          <h2>No sites generated yet</h2>
+          <p>Use the GitHub Actions workflow to create your first Top10 site!</p>
+          <a href="https://github.com/SC-Connections/Top10/actions/workflows/generate-site.yml" class="cta">
+            Generate New Site
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

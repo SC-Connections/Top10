@@ -1,0 +1,63 @@
+name: Generate Top10 Site
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: 'Site title (e.g., "Best Coffee Makers 2024")'
+        required: true
+        type: string
+      slug:
+        description: 'URL slug (e.g., "best-coffee-makers")'
+        required: true
+        type: string
+      niche:
+        description: 'Product niche/category (e.g., "coffee makers")'
+        required: true
+        type: string
+      amazon_search:
+        description: 'Amazon search query'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. checkout repo
+      - uses: actions/checkout@v4
+      
+      # 2. install tooling
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install -g mustache axios
+      
+      # 3. pull live Amazon data via RapidAPI
+      - name: Fetch Amazon data
+        env:
+          NODE_PATH: /usr/local/lib/node_modules
+          RAPID_KEY: ${{ secrets.RAPIDAPI_KEY }}
+          AMAZON_AFFILIATE_ID: ${{ secrets.AMAZON_AFFILIATE_ID }}
+          TITLE: ${{ github.event.inputs.title }}
+          SLUG: ${{ github.event.inputs.slug }}
+          NICHE: ${{ github.event.inputs.niche }}
+          SEARCH_QUERY: ${{ github.event.inputs.amazon_search }}
+        run: node .github/scripts/fill-template.js
+      
+      # 4. create Jekyll post
+      - run: |
+          mv _data/filled.json _data/${{ github.event.inputs.slug }}.json
+          echo "---"                      >  _posts/$(date +%F)-${{ github.event.inputs.slug }}.md
+          echo "layout: top10"           >> _posts/$(date +%F)-${{ github.event.inputs.slug }}.md
+          echo "data_file: ${{ github.event.inputs.slug }}" >> _posts/$(date +%F)-${{ github.event.inputs.slug }}.md
+          echo "---"                     >> _posts/$(date +%F)-${{ github.event.inputs.slug }}.md
+      
+      # 5. push back to SAME repo (or publish to Pages)
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "auto: new top10 – ${{ github.event.inputs.title }}"
