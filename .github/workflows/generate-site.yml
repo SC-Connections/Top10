@@ -51,6 +51,7 @@ jobs:
       
       # 4. create Jekyll post
       - run: |
+          mkdir -p _posts
           mv _data/filled.json _data/${{ github.event.inputs.slug }}.json
           echo "---"                      >  _posts/$(date +%F)-${{ github.event.inputs.slug }}.md
           echo "layout: top10"           >> _posts/$(date +%F)-${{ github.event.inputs.slug }}.md
