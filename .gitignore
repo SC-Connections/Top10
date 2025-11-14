@@ -27,6 +27,30 @@ wheels/
 venv/
 ENV/
 env/
+# Dependencies
+node_modules/
+package-lock.json
+
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+Gemfile.lock
+vendor/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+*.swp
+*~
 
 # IDE
 .vscode/
@@ -42,3 +66,9 @@ output/
 # Sensitive
 config.json
 .env
+*.sublime-*
+
+# Build artifacts
+dist/
+build/
+
