@@ -254,4 +254,19 @@ This project is open source and available for personal and commercial use.
 
 ## ⚠️ Disclaimer
 
-This site contains affiliate links. When you click on links and make a purchase, we may receive a commission at no extra cost to you. 
+This site contains affiliate links. When you click on links and make a purchase, we may receive a commission at no extra cost to you.
+
+## 🆘 Troubleshooting
+
+Having issues? Check out our comprehensive [Troubleshooting Guide](TROUBLESHOOTING.md) for:
+- Fixing "RAPID_KEY environment variable is required" errors
+- Resolving API connection issues
+- Verifying GitHub Secrets configuration
+- Testing affiliate links
+- And more!
+
+Quick links:
+- [Setup Guide](SETUP.md) - Detailed setup instructions
+- [Troubleshooting](TROUBLESHOOTING.md) - Common issues and solutions
+- [Example Usage](EXAMPLE.md) - Usage examples
+ 
