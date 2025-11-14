@@ -1,0 +1,8 @@
+{
+  "rapidapi_key": "YOUR_RAPIDAPI_KEY_HERE",
+  "rapidapi_host": "amazon-real-time-api.p.rapidapi.com",
+  "amazon_affiliate_id": "YOUR_AMAZON_AFFILIATE_ID_HERE",
+  "api_endpoint": "https://amazon-real-time-api.p.rapidapi.com/deals",
+  "domain": "US",
+  "node_id": "16310101"
+}
