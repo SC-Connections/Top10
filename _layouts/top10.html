@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.data[page.data_file].title }}</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f5f5f5;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      margin-bottom: 40px;
+      border-radius: 10px;
+    }
+    
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    
+    .subtitle {
+      font-size: 1.1em;
+      opacity: 0.9;
+    }
+    
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+    }
+    
+    .rank-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #ff6b6b;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2em;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .product-image-wrapper {
+      position: relative;
+      padding: 20px;
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 250px;
+    }
+    
+    .product-image {
+      max-width: 100%;
+      max-height: 250px;
+      object-fit: contain;
+    }
+    
+    .product-info {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product-title {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: #f39c12;
+    }
+    
+    .stars {
+      font-size: 1.2em;
+    }
+    
+    .reviews {
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+    
+    .product-price {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #27ae60;
+      margin: 10px 0;
+    }
+    
+    .product-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+    
+    .btn {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.1s;
+      display: inline-block;
+    }
+    
+    .btn:active {
+      transform: scale(0.98);
+    }
+    
+    .btn-buy {
+      background: #ff9900;
+      color: white;
+    }
+    
+    .btn-buy:hover {
+      background: #e68a00;
+    }
+    
+    .btn-details {
+      background: #3498db;
+      color: white;
+    }
+    
+    .btn-details:hover {
+      background: #2980b9;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #7f8c8d;
+      background: white;
+      border-radius: 10px;
+      margin-top: 40px;
+    }
+    
+    .disclaimer {
+      font-size: 0.85em;
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8em;
+      }
+      
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>{{ site.data[page.data_file].title }}</h1>
+      <p class="subtitle">Top 10 {{ site.data[page.data_file].niche }} - Updated {{ site.data[page.data_file].generated_at | date: "%B %d, %Y" }}</p>
+    </header>
+    
+    <div class="product-grid">
+      {% for product in site.data[page.data_file].products %}
+      <div class="product-card">
+        <div class="product-image-wrapper">
+          <div class="rank-badge">#{{ product.rank }}</div>
+          <img src="{{ product.image }}" alt="{{ product.title }}" class="product-image" loading="lazy">
+        </div>
+        <div class="product-info">
+          <h2 class="product-title">{{ product.title }}</h2>
+          <div class="product-rating">
+            <span class="stars">⭐ {{ product.rating }}</span>
+            <span class="reviews">({{ product.reviews }} reviews)</span>
+          </div>
+          <div class="product-price">
+            {% if product.price != "N/A" %}
+              ${{ product.price }}
+            {% else %}
+              Check Price
+            {% endif %}
+          </div>
+          <div class="product-buttons">
+            <a href="{{ product.url }}" class="btn btn-buy" target="_blank" rel="nofollow noopener">Buy Now</a>
+            <a href="{{ product.url }}" class="btn btn-details" target="_blank" rel="nofollow noopener">Details</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <footer>
+      <p><strong>About This List</strong></p>
+      <p>This top 10 list was automatically generated based on Amazon product data.</p>
+      <p class="disclaimer">
+        <strong>Disclosure:</strong> This page contains affiliate links. 
+        When you click on links and make a purchase, we may receive a commission at no extra cost to you. 
+        This helps support our site. Product prices and availability are accurate as of the date/time indicated 
+        and are subject to change. Any price and availability information displayed on Amazon at the time of 
+        purchase will apply to the purchase of this product.
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
