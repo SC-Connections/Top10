@@ -35,12 +35,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm install -g mustache axios
+      - run: npm install
       
       # 3. pull live Amazon data via RapidAPI
       - name: Fetch Amazon data
         env:
-          NODE_PATH: /usr/local/lib/node_modules
           RAPID_KEY: ${{ secrets.RAPIDAPI_KEY }}
           AMAZON_AFFILIATE_ID: ${{ secrets.AMAZON_AFFILIATE_ID }}
           TITLE: ${{ github.event.inputs.title }}
