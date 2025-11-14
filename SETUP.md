@@ -98,16 +98,20 @@ If it fails, check:
 ### Workflow fails with "RAPID_KEY is required"
 - Check that you named the secret `RAPIDAPI_KEY` (not `RAPID_KEY`)
 - Verify the secret exists in Settings > Secrets and variables > Actions
+- The workflow now supports multiple secret name variations as fallbacks
+- See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for detailed help
 
 ### API returns errors
 - Check your RapidAPI subscription status
 - Verify you haven't exceeded your free tier limits
 - Try a different Amazon product API if needed
+- See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for more solutions
 
 ### Affiliate links don't work
 - Double-check your Amazon Associates ID format
 - Ensure you're approved in the Associates program
 - Test links manually to verify they work
+- See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for verification steps
 
 ## Security Best Practices
 
@@ -120,10 +124,11 @@ If it fails, check:
 ## Need Help?
 
 If you encounter issues:
-1. Check the GitHub Actions logs for error messages
-2. Verify your secrets are set correctly
-3. Test your API key manually with a tool like Postman
-4. Review the RapidAPI documentation for the specific Amazon API you're using
+1. Check the [Troubleshooting Guide](TROUBLESHOOTING.md) for detailed solutions
+2. Check the GitHub Actions logs for error messages
+3. Verify your secrets are set correctly
+4. Test your API key manually with a tool like Postman
+5. Review the RapidAPI documentation for the specific Amazon API you're using
 
 ---
 

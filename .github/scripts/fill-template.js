@@ -18,8 +18,45 @@ const NICHE = process.env.NICHE || 'products';
 const SEARCH_QUERY = process.env.SEARCH_QUERY || '';
 
 if (!RAPID_KEY) {
-  console.error('Error: RAPID_KEY environment variable is required');
+  console.error('╔══════════════════════════════════════════════════════════════════╗');
+  console.error('║  ERROR: Missing RapidAPI Key                                     ║');
+  console.error('╚══════════════════════════════════════════════════════════════════╝');
+  console.error('');
+  console.error('The RAPID_KEY environment variable is empty or not set.');
+  console.error('');
+  console.error('This usually means your GitHub secret is not configured correctly.');
+  console.error('');
+  console.error('To fix this:');
+  console.error('  1. Go to: Settings > Secrets and variables > Actions');
+  console.error('  2. Create a new repository secret named: RAPIDAPI_KEY');
+  console.error('     (Note: Use exactly this name - it\'s case-sensitive!)');
+  console.error('  3. Set the value to your RapidAPI key');
+  console.error('');
+  console.error('Alternative secret names that will also work:');
+  console.error('  - RAPIDAPI_KEY (recommended)');
+  console.error('  - RAPID_API_KEY');
+  console.error('  - RAPID_KEY');
+  console.error('  - RAPIDAPIKEY');
+  console.error('');
+  console.error('For detailed setup instructions, see: SETUP.md');
+  console.error('');
   process.exit(1);
+}
+
+if (!process.env.AMAZON_AFFILIATE_ID) {
+  console.warn('╔══════════════════════════════════════════════════════════════════╗');
+  console.warn('║  WARNING: Amazon Affiliate ID not set                           ║');
+  console.warn('╚══════════════════════════════════════════════════════════════════╝');
+  console.warn('');
+  console.warn('Using default affiliate ID. You won\'t earn commissions!');
+  console.warn('');
+  console.warn('To fix this:');
+  console.warn('  1. Go to: Settings > Secrets and variables > Actions');
+  console.warn('  2. Create a new repository secret named: AMAZON_AFFILIATE_ID');
+  console.warn('  3. Set the value to your Amazon Associates tracking ID');
+  console.warn('');
+  console.warn('For setup instructions, see: SETUP.md');
+  console.warn('');
 }
 
 /**

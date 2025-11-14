@@ -40,8 +40,8 @@ jobs:
       # 3. pull live Amazon data via RapidAPI
       - name: Fetch Amazon data
         env:
-          RAPID_KEY: ${{ secrets.RAPIDAPI_KEY }}
-          AMAZON_AFFILIATE_ID: ${{ secrets.AMAZON_AFFILIATE_ID }}
+          RAPID_KEY: ${{ secrets.RAPIDAPI_KEY || secrets.RAPID_API_KEY || secrets.RAPID_KEY || secrets.RAPIDAPIKEY }}
+          AMAZON_AFFILIATE_ID: ${{ secrets.AMAZON_AFFILIATE_ID || secrets.AMAZON_AFFILIATE || secrets.AFFILIATE_ID }}
           TITLE: ${{ github.event.inputs.title }}
           SLUG: ${{ github.event.inputs.slug }}
           NICHE: ${{ github.event.inputs.niche }}
