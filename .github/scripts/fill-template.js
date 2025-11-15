@@ -16,6 +16,36 @@ const TITLE = process.env.TITLE || 'Top 10 Products';
 const SLUG = process.env.SLUG || 'top-10-products';
 const NICHE = process.env.NICHE || 'products';
 const SEARCH_QUERY = process.env.SEARCH_QUERY || '';
+const NODE_ID = process.env.NODE_ID || '';  // Allow custom node_id override
+
+/**
+ * Map common product categories/niches to Amazon node IDs
+ * Can be overridden by NODE_ID environment variable
+ */
+function getCategoryNodeId(niche, searchQuery) {
+  // If NODE_ID is explicitly set, use it
+  if (NODE_ID) {
+    return NODE_ID;
+  }
+  
+  // Map common keywords to category node IDs
+  const nicheKeywords = (niche + ' ' + searchQuery).toLowerCase();
+  
+  if (nicheKeywords.includes('electronics') || nicheKeywords.includes('gadget')) {
+    return '16310101';  // Electronics
+  } else if (nicheKeywords.includes('computer') || nicheKeywords.includes('laptop') || nicheKeywords.includes('pc')) {
+    return '2619525011';  // Computers & Accessories
+  } else if (nicheKeywords.includes('phone') || nicheKeywords.includes('mobile') || nicheKeywords.includes('cell')) {
+    return '2335752011';  // Cell Phones & Accessories
+  } else if (nicheKeywords.includes('office') || nicheKeywords.includes('desk') || nicheKeywords.includes('stationery')) {
+    return '1064954';  // Office Products
+  } else if (nicheKeywords.includes('home') || nicheKeywords.includes('kitchen') || nicheKeywords.includes('cooking')) {
+    return '165793011';  // Home & Kitchen
+  } else {
+    // Default to Electronics for general products
+    return '16310101';
+  }
+}
 
 if (!RAPID_KEY) {
   console.error('╔══════════════════════════════════════════════════════════════════╗');
@@ -64,14 +94,17 @@ if (!process.env.AMAZON_AFFILIATE_ID) {
  */
 async function fetchAmazonProducts() {
   try {
-    console.log(`Fetching Amazon products for: ${SEARCH_QUERY}`);
+    const nodeId = getCategoryNodeId(NICHE, SEARCH_QUERY);
+    console.log(`Fetching Amazon deals for category node: ${nodeId}`);
+    console.log(`  Niche: ${NICHE}`);
+    console.log(`  Search context: ${SEARCH_QUERY}`);
     
     const options = {
       method: 'GET',
       url: 'https://amazon-real-time-api.p.rapidapi.com/deals',
       params: {
         domain: 'US',
-        node_id: '16310101'  // Electronics category - can be customized
+        node_id: nodeId
       },
       headers: {
         'X-RapidAPI-Key': RAPID_KEY,
