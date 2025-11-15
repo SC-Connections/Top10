@@ -26,17 +26,14 @@ permissions:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    
     steps:
       # 1. checkout repo
       - uses: actions/checkout@v4
-      
       # 2. install tooling
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm install
-      
       # 3. pull live Amazon data via RapidAPI
       - name: Fetch Amazon data
         env:
@@ -47,7 +44,6 @@ jobs:
           NICHE: ${{ github.event.inputs.niche }}
           SEARCH_QUERY: ${{ github.event.inputs.amazon_search }}
         run: node .github/scripts/fill-template.js
-      
       # 4. create Jekyll post
       - run: |
           mkdir -p _posts
@@ -56,7 +52,6 @@ jobs:
           echo "layout: top10"           >> _posts/$(date +%F)-${{ github.event.inputs.slug }}.md
           echo "data_file: ${{ github.event.inputs.slug }}" >> _posts/$(date +%F)-${{ github.event.inputs.slug }}.md
           echo "---"                     >> _posts/$(date +%F)-${{ github.event.inputs.slug }}.md
-      
       # 5. push back to SAME repo (or publish to Pages)
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
